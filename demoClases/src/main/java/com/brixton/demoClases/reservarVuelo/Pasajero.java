@@ -10,11 +10,11 @@ import java.util.List;
 public class Pasajero {
     private String nombre;
     private String apellido;
-    private List<String> tipoDocumentoIdentidad;
-    private String numerodocumento;
+    private DocumentoDeIdentificacion DocIdentificacion;
     private String email;
+    private Aerolinea empresa;
 
-    public void reservaVuelo(String numerodocumento, String email){
+    public void reservaVuelo(DocumentoDeIdentificacion identificacion, String email){
 
     }
 }
