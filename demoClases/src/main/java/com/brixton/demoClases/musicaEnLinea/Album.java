@@ -1,8 +1,13 @@
 package com.brixton.demoClases.musicaEnLinea;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 import java.util.List;
 
+@Getter
+@Setter
 public class Album {
     private String titulo;
     private LocalDate año;

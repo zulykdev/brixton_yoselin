@@ -8,8 +8,13 @@ import java.util.List;
 @Setter
 public class Aerolinea {
     private String nombreEmpresa;
-    private List<String> lugareDeDestino;
-    private Vuelo fechaDisponible;
+    private List<String> lugarDeDestino;
+    private List<Vuelo> fechaDisponible;
+
+    public double isValidDestination(String destino){
+        //Destino que ingrese
+        return 0;
+    }
 
     public double ofertaDescuento(List<String> lugareDeDestino){
 

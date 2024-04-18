@@ -16,7 +16,8 @@ public class Vuelo {
     private double precio;
     private int numeroEscala;
     private int numeroPasajero;
-
+/**
+ * List</escala> escalaa s*/
 
     public void buscarVuelo(LocalDate fechaViaje, String lugarOrigen,
                             String lugarDestino){

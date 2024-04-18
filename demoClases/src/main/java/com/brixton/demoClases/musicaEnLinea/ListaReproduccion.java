@@ -16,4 +16,7 @@ public class ListaReproduccion {
     public void agregarCancion(Cancion cancion) {
 
     }
+    public void agregarArtista(Artista artistaPreferido){
+
+    }
 }

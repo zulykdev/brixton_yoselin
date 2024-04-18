@@ -11,9 +11,9 @@ import java.util.List;
 public class Pregunta {
     private int preguntaId;
     private String textoPregunta;
-    private int dificultad;
+    private List<Respuesta> opcionesDeRespuesta;
+    public List<Respuesta> getRespuestaCorrecta(List<Respuesta>opcionesDeRespuesta){
 
-    public List<Respuesta> getRespuestaCorrecta(){
         return new ArrayList<>();
     }
 }

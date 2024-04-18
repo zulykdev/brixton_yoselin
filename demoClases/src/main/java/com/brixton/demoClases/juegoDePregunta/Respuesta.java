@@ -7,7 +7,6 @@ import lombok.Setter;
 @Setter
 public class Respuesta {
     private int respuestaId;
-    private Pregunta numeroPregunta;
     private Jugador codigoJugador;
     private String respuestaElegida;
     private int puntajeObtenido;
@@ -15,5 +14,6 @@ public class Respuesta {
     public void evaluarRespuesta(String respuestaCorrecta, int puntaje ){
 
     }
+
 
 }

@@ -8,9 +8,9 @@ import lombok.Setter;
 public class Jugador {
     private int codigoJugador;
     private String nombre;
-    private int puntosAcumulados;
+    private double puntoAcumulado;
 
-    public void incrementoPuntaje(int puntos){
+    public void incrementoPuntaje(double puntos){
 
     }
 }
