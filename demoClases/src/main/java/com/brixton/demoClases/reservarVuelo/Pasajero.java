@@ -2,15 +2,17 @@ package com.brixton.demoClases.reservarVuelo;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 
 @Getter
 @Setter
+@ToString
 public class Pasajero {
     private String nombre;
     private String apellido;
-    private DocumentoDeIdentificacion DocIdentificacion;
+    private TipoDocumento identificacion;
     private String email;
     private Aerolinea empresa;
 

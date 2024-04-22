@@ -2,22 +2,21 @@ package com.brixton.demoClases.ajedrez;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @Setter
 @Getter
+@ToString
 @Slf4j
 public class Jugador {
 
     private String nombreJugador;
-    private String colorEquipo;
+    private String color;
 
     public Jugador(String nombreJugador, String colorEquipo) {
         setNombreJugador(nombreJugador);
-        setColorEquipo(colorEquipo);
+        setColor(colorEquipo);
     }
-    public void mostrarInfoJugadores(){
-        log.info("Nombre de Jugador: " + getNombreJugador());
-        log.info("Color de Piezas: " + getColorEquipo());
-    }
+
 }

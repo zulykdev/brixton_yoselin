@@ -2,12 +2,14 @@ package com.brixton.demoClases.viajeTuristico;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Getter
 @Setter
+@ToString
 public class PaqueteTuristico {
 
     private String descripcion;

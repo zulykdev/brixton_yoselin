@@ -2,12 +2,14 @@ package com.brixton.demoClases.reservarVuelo;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Getter
 @Setter
+@ToString
 public class Vuelo {
     private String lugarDeSalida;
     private String lugarDeLlegada;

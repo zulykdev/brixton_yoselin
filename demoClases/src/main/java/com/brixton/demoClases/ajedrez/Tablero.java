@@ -2,6 +2,7 @@ package com.brixton.demoClases.ajedrez;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -11,13 +12,14 @@ import java.util.Map;
 
 @Getter
 @Setter
-@Slf4j
+@ToString
+
 public class Tablero {
     private Map<String,Jugador> gamer;
     private Map<String, Pieza> piezas;
-    private List<Ubicacion> ubicaciones;
+    private List<Posicion> ubicaciones;
 
-    public Tablero (Map<String,Jugador> gamer,Map<String,Pieza> piezas, List<Ubicacion> ubicaciones){
+    public Tablero (Map<String,Jugador> gamer,Map<String,Pieza> piezas, List<Posicion> ubicaciones){
         setGamer(new HashMap<>());
         setPiezas(new HashMap<>());
         setUbicaciones(new ArrayList<>());
