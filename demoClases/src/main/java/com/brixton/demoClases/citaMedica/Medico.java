@@ -1,7 +1,15 @@
 package com.brixton.demoClases.citaMedica;
 
-public class Medico {
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class Medico extends Persona {
 
     private String especialidad;
+
 
 }
