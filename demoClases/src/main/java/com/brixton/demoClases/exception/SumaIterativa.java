@@ -26,14 +26,15 @@ public class SumaIterativa {
                     System.out.println("El resultado de la suma es : " + suma);
                 } catch (Exception e) {
                     System.out.println("Solo se permite valor numérico: " + e.getMessage());
+                    input.nextLine();// resetea los valores ingresados antes
                 }
 
                 System.out.println("Desea continuar? : y/n");
                 continuar = input.next();
+                System.out.println("Valor de continuar: " + continuar);
                 while (!continuar.equalsIgnoreCase("y") && !continuar.equalsIgnoreCase("n")) {
-                    System.out.println("Entrada inválida. Por favor ingrese 'y' para continuar o 'n' para salir: ");
+                    System.out.println("Por favor ingrese 'y' para continuar o 'n' para salir: ");
                     continuar = input.next();
-
 
                 }
             }
