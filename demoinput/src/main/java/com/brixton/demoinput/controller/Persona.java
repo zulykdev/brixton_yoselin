@@ -1,4 +1,4 @@
-package com.brixton.input.controller;
+package com.brixton.demoinput.controller;
 
 import lombok.Getter;
 import lombok.Setter;

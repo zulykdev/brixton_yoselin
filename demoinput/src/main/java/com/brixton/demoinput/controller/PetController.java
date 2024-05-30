@@ -1,7 +1,7 @@
-package com.brixton.input.controller;
+package com.brixton.demoinput.controller;
 
-import com.brixton.input.dto.request.PetGenericRequestDTO;
-import com.brixton.input.dto.response.PetResponseDTO;
+import com.brixton.demoinput.dto.request.PetGenericRequestDTO;
+import com.brixton.demoinput.dto.response.PetResponseDTO;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.HttpStatusCode;

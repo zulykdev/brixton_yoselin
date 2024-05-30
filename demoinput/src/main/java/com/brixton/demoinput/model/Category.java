@@ -1,4 +1,4 @@
-package com.brixton.input.model;
+package com.brixton.demoinput.model;
 
 import lombok.Getter;
 import lombok.Setter;

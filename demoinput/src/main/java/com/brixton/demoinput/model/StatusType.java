@@ -1,4 +1,4 @@
-package com.brixton.input.model;
+package com.brixton.demoinput.model;
 
 public enum StatusType {
     AVAILABLE,

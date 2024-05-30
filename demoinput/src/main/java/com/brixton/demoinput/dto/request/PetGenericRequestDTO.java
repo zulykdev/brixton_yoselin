@@ -1,4 +1,4 @@
-package com.brixton.input.dto.request;
+package com.brixton.demoinput.dto.request;
 
 import lombok.Getter;
 import lombok.ToString;
