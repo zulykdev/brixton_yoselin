@@ -20,7 +20,7 @@ public class UserController {
     Map<String, UserGenericRequestDTO> userInputs = new HashMap<>();
     Map<String, UserResponseDTO> userOutputs = new HashMap<>();
 
-    Map<String, String> loginOutputs = new HashMap<>();
+    Map<String, String> userLoggeds= new HashMap<>();
 
     @PostMapping("/")
     public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserGenericRequestDTO input){
@@ -83,7 +83,7 @@ public class UserController {
     @DeleteMapping("/{username}")
     public ResponseEntity deleteUser(@PathVariable String username){
 
-        UserResponseDTO usernameTemp = userOutputs.get(username);;
+        UserResponseDTO usernameTemp = userOutputs.get(username);
 
         if (usernameTemp != null) {
             userOutputs.remove(username);
@@ -95,15 +95,35 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public ResponseEntity<UserResponseDTO> login(@RequestParam String username, @RequestParam String password){
+    public ResponseEntity<UserResponseDTO> login(@RequestParam (name="username") String username, @RequestParam (name="password") String password){
 
-        String loginTemporal = loginOutputs.get(String.valueOf(username));
-        return null;
+        UserResponseDTO userTemporal = userOutputs.get(username);
+        if(userTemporal!= null && userTemporal.getPassword().equals(password)){
+            String logged = userLoggeds.get(username);
+            if(logged == null){
+                userLoggeds.put(userTemporal.getUserName(),userTemporal.getUserName());
+                return new ResponseEntity<>(HttpStatusCode.valueOf(200));
+            }else{
+                return new ResponseEntity<>(HttpStatusCode.valueOf(500));
+            }
+        }else{
+            return new ResponseEntity<>(HttpStatusCode.valueOf(400));
+        }
+
     }
 
 
     @GetMapping("/logout")
-    public ResponseEntity<UserResponseDTO> logout(){
-        return null;
+    public ResponseEntity<UserResponseDTO> login(@RequestParam String username){
+
+        String logged = userLoggeds.get(username);
+
+        if(logged != null){
+            userLoggeds.remove(logged);
+            return new ResponseEntity<>(HttpStatusCode.valueOf(200));
+        }else{
+            return new ResponseEntity<>(HttpStatusCode.valueOf(500));
+        }
+
     }
 }
