@@ -49,10 +49,7 @@ public class StoreController {
                 valoresEncontrados.add(x);
             }
         }
-
         return ResponseEntity.ok(valoresEncontrados);
-
-        //List<String>inventariesSstatus = ("placed", "approved", "delivered");
     }
 
     @GetMapping("/inventory/count/{status}")
