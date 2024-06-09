@@ -1,60 +1,56 @@
 package com.brixton.demoinput.controller;
 
 import com.brixton.demoinput.dto.request.UserGenericRequestDTO;
-import com.brixton.demoinput.dto.response.PetResponseDTO;
 import com.brixton.demoinput.dto.response.UserResponseDTO;
-import org.springframework.http.HttpStatus;
+import com.brixton.demoinput.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/v1/user")
 public class UserController {
 
-    Map<String, UserGenericRequestDTO> userInputs = new HashMap<>();
-    Map<String, UserResponseDTO> userOutputs = new HashMap<>();
+    @Autowired
+    private UserService userService;
 
-    Map<String, String> userLoggeds= new HashMap<>();
 
     @PostMapping("/")
-    public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserGenericRequestDTO input){
-
-        userInputs.put(String.valueOf(input.getUserName()), input);
-
-        UserResponseDTO user = new UserResponseDTO();
-        user.setId(input.getId());
-        user.setUserName(input.getUserName());
-        user.setFirstName(input.getFirstName());
-        user.setLastName(input.getLastName());
-        user.setEmail(input.getEmail());
-        user.setPassword(input.getPassword());
-        user.setPhone(input.getPhone());
-        user.setUserStatus(input.getUserStatus());
-
-        userOutputs.put(String.valueOf(input.getUserName()), user);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<Object> createUser(@RequestBody UserGenericRequestDTO input){
+        return ResponseEntity.ok(userService.createUser(input));
     }
 
     @PostMapping("/createWithList")
-    public ResponseEntity<List<UserResponseDTO>> createWithList(@RequestBody List<UserGenericRequestDTO> users) {
+    public ResponseEntity<List<Object>> createWithList(@RequestBody List<UserGenericRequestDTO> users) {
+        /*List<UserResponseDTO> responseUsers = new ArrayList<>();
         for (UserGenericRequestDTO user : users) {
             userInputs.put(String.valueOf(user.getUserName()), user);
             UserResponseDTO responseUser = new UserResponseDTO();
+            responseUser.setId(user.getId());
+            responseUser.setUserName(user.getUserName());
+            responseUser.setFirstName(user.getFirstName());
+            responseUser.setLastName(user.getLastName());
+            responseUser.setEmail(user.getEmail());
+            responseUser.setPassword(user.getPassword());
+            responseUser.setPhone(user.getPhone());
+            responseUser.setUserStatus(user.getUserStatus());
             userOutputs.put(String.valueOf(user.getUserName()), responseUser);
+            responseUsers.add(responseUser);
         }
-        return ResponseEntity.status(HttpStatus.CREATED).body((List)userOutputs.values());
+
+        //return ResponseEntity.status(HttpStatus.CREATED).body((List)userOutputs.values());
+        //return ResponseEntity.status(HttpStatus.CREATED).body();
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseUsers);*/
+        return null;
     }
 
     @GetMapping("/{username}")
-    public ResponseEntity<UserResponseDTO> getUserName(@PathVariable String username) {
+    public ResponseEntity<Object> getUserName(@PathVariable String username) {
 
-        UserResponseDTO usernameTemporal = userOutputs.get(username);
+        Object usernameTemporal = userService.getUsername(username);
 
         if (usernameTemporal != null) {
             return ResponseEntity.ok(usernameTemporal);
@@ -64,40 +60,29 @@ public class UserController {
     }
 
     @PutMapping("/{username}")
-    public ResponseEntity<UserResponseDTO> updateUser(@PathVariable String username, @RequestBody UserGenericRequestDTO userActualizar) {
-
-        UserResponseDTO usernameTemp = userOutputs.get(username);
-        if(usernameTemp != null) {
-            usernameTemp.setFirstName(userActualizar.getFirstName());
-            usernameTemp.setLastName(userActualizar.getLastName());
-            usernameTemp.setEmail(userActualizar.getEmail());
-            usernameTemp.setPassword(userActualizar.getPassword());
-            usernameTemp.setPhone(userActualizar.getPhone());
-            usernameTemp.setUserStatus(userActualizar.getUserStatus());
-            return ResponseEntity.ok(usernameTemp);
-        }else {
-            return new ResponseEntity<>(HttpStatusCode.valueOf(404));
+    public ResponseEntity<Object> updateUser(@PathVariable String username, @RequestBody UserGenericRequestDTO userActualizar) {
+        Object userUpdate = userService.updateUser(username, userActualizar);
+        if(userUpdate != null){
+            return ResponseEntity.ok(userUpdate);
         }
+        return new ResponseEntity<>(HttpStatusCode.valueOf(404));
     }
 
     @DeleteMapping("/{username}")
     public ResponseEntity deleteUser(@PathVariable String username){
 
-        UserResponseDTO usernameTemp = userOutputs.get(username);
-
-        if (usernameTemp != null) {
-            userOutputs.remove(username);
+        boolean successfull = (boolean) userService.deleteUser(username);
+        if(successfull){
             return new ResponseEntity<>(HttpStatusCode.valueOf(204)); //Paso 2.
         } else{
             return new ResponseEntity<>(HttpStatusCode.valueOf(404));
         }
-
     }
 
     @GetMapping("/login")
     public ResponseEntity<UserResponseDTO> login(@RequestParam (name="username") String username, @RequestParam (name="password") String password){
 
-        UserResponseDTO userTemporal = userOutputs.get(username);
+       /* UserResponseDTO userTemporal = userOutputs.get(username);
         if(userTemporal!= null && userTemporal.getPassword().equals(password)){
             String logged = userLoggeds.get(username);
             if(logged == null){
@@ -108,7 +93,8 @@ public class UserController {
             }
         }else{
             return new ResponseEntity<>(HttpStatusCode.valueOf(400));
-        }
+        }*/
+        return null;
 
     }
 
@@ -116,14 +102,15 @@ public class UserController {
     @GetMapping("/logout")
     public ResponseEntity<UserResponseDTO> login(@RequestParam String username){
 
-        String logged = userLoggeds.get(username);
+        /*String logged = userLoggeds.get(username);
 
         if(logged != null){
             userLoggeds.remove(logged);
             return new ResponseEntity<>(HttpStatusCode.valueOf(200));
         }else{
             return new ResponseEntity<>(HttpStatusCode.valueOf(500));
-        }
+        }*/
+        return null;
 
     }
 }
