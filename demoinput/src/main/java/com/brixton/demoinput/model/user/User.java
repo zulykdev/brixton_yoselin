@@ -1,5 +1,6 @@
 package com.brixton.demoinput.model.user;
 
+import com.brixton.demoinput.model.ObjectAudit;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -7,7 +8,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class User {
+public class User extends ObjectAudit {
     private int id;
     private String userName;
     private String firstName;

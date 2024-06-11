@@ -17,12 +17,15 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService {
+
+    private static final String USER_APP = "BRIXTON";
     Map<String, User> users = new HashMap<>();
     Map<String, String> userLoggeds= new HashMap<>();
     ObjectMapper objectMapper = new ObjectMapper();
@@ -49,6 +52,8 @@ public class UserServiceImpl implements UserService {
             String jsonInput = objectMapper.writeValueAsString(inputUser);
 
             User user = objectMapper.readValue(jsonInput, User.class);
+            user.setCreatedAt(LocalDateTime.now());
+            user.setCreatedBy(USER_APP);
             users.put(user.getUserName(), user);
 
             String jsonOutput = objectMapper.writeValueAsString(user);
@@ -69,6 +74,8 @@ public class UserServiceImpl implements UserService {
                 String jsonInput = objectMapper.writeValueAsString(inputUser);
 
                 User user = objectMapper.readValue(jsonInput, User.class);
+                user.setCreatedAt(LocalDateTime.now());
+                user.setCreatedBy(USER_APP);
                 users.put(user.getUserName(), user);
 
                 String jsonOutput = objectMapper.writeValueAsString(user);
@@ -98,6 +105,8 @@ public class UserServiceImpl implements UserService {
                 original.setPassword(userTemporal.getPassword());
                 original.setPhone(userTemporal.getPhone());
                 original.setUserStatus(userTemporal.getUserStatus());
+                original.setUpdatedAt(LocalDateTime.now());
+                original.setUpdatedBy(USER_APP);
 
                 String jsonOutput = objectMapper.writeValueAsString(original);
                 UserResponseDTO output = objectMapper.readValue(jsonOutput, UserResponseDTO.class);
