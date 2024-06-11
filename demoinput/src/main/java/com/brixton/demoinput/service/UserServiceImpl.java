@@ -1,27 +1,47 @@
 package com.brixton.demoinput.service;
 
 import com.brixton.demoinput.dto.request.UserGenericRequestDTO;
-import com.brixton.demoinput.dto.response.PetResponseDTO;
 import com.brixton.demoinput.dto.response.UserResponseDTO;
+import com.brixton.demoinput.model.mappers.CustomDateDeserializer;
 import com.brixton.demoinput.model.user.User;
-import com.fasterxml.jackson.core.JsonProcessingException;
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService {
-    Map<String, UserGenericRequestDTO> userInputs = new HashMap<>();
-    Map<String, UserResponseDTO> userOutputs = new HashMap<>();
     Map<String, User> users = new HashMap<>();
     Map<String, String> userLoggeds= new HashMap<>();
     ObjectMapper objectMapper = new ObjectMapper();
+    SimpleModule module = new SimpleModule();
+    public UserServiceImpl() {
+        module.addDeserializer(LocalDate.class, new CustomDateDeserializer());
+        module.addSerializer(LocalDate.class, new JsonSerializer<LocalDate>() {
+            @Override
+            public void serialize(LocalDate localDate, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+                jsonGenerator.writeString(localDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            }
+        });
+
+        //module.addSerializer(LocalDateTimeSerializer);
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.registerModule(module);
+        objectMapper.findAndRegisterModules();
+    }
 
     public Object createUser(UserGenericRequestDTO inputUser){
 
@@ -42,16 +62,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Object createWithList(List<UserGenericRequestDTO> users) {
-       /* List<Object>responseUsers = new ArrayList<>();
+    public Object createWithList(List<UserGenericRequestDTO> inputUsers) {
+        List<Object> outputUsers = new ArrayList<>();
         try {
-            String jsonInput = objectMapper.writeValueAsString(responseUsers);
-            //User user = objectMapper.readValue(())
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }*/
+            for(UserGenericRequestDTO inputUser: inputUsers){
+                String jsonInput = objectMapper.writeValueAsString(inputUser);
 
-        return null;
+                User user = objectMapper.readValue(jsonInput, User.class);
+                users.put(user.getUserName(), user);
+
+                String jsonOutput = objectMapper.writeValueAsString(user);
+                UserResponseDTO output = objectMapper.readValue(jsonOutput, UserResponseDTO.class);
+                outputUsers.add(output);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return  outputUsers;
     }
 
     @Override
@@ -102,11 +132,32 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Object login(String username, String password) {
+
+       User user = users.get(username);
+        if(user != null && user.getPassword().equals(password)){
+            try {
+                String jsonOutput = objectMapper.writeValueAsString(user);
+                UserResponseDTO output = objectMapper.readValue(jsonOutput, UserResponseDTO.class);
+                if(output!=null){
+                     userLoggeds.put(user.getUserName(), user.getUserName());
+                     return output;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
         return null;
     }
 
     @Override
     public Object logout(String username) {
-        return null;
+        String loggedUser = userLoggeds.get(username);
+        if(loggedUser != null){
+
+            userLoggeds.remove(loggedUser);
+            return true;
+        }
+        return false;
     }
 }

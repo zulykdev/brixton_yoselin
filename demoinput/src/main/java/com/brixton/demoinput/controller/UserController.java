@@ -1,9 +1,10 @@
 package com.brixton.demoinput.controller;
 
 import com.brixton.demoinput.dto.request.UserGenericRequestDTO;
-import com.brixton.demoinput.dto.response.UserResponseDTO;
 import com.brixton.demoinput.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/v1/user")
+@Slf4j
 public class UserController {
 
     @Autowired
@@ -25,26 +27,8 @@ public class UserController {
 
     @PostMapping("/createWithList")
     public ResponseEntity<List<Object>> createWithList(@RequestBody List<UserGenericRequestDTO> users) {
-        /*List<UserResponseDTO> responseUsers = new ArrayList<>();
-        for (UserGenericRequestDTO user : users) {
-            userInputs.put(String.valueOf(user.getUserName()), user);
-            UserResponseDTO responseUser = new UserResponseDTO();
-            responseUser.setId(user.getId());
-            responseUser.setUserName(user.getUserName());
-            responseUser.setFirstName(user.getFirstName());
-            responseUser.setLastName(user.getLastName());
-            responseUser.setEmail(user.getEmail());
-            responseUser.setPassword(user.getPassword());
-            responseUser.setPhone(user.getPhone());
-            responseUser.setUserStatus(user.getUserStatus());
-            userOutputs.put(String.valueOf(user.getUserName()), responseUser);
-            responseUsers.add(responseUser);
-        }
 
-        //return ResponseEntity.status(HttpStatus.CREATED).body((List)userOutputs.values());
-        //return ResponseEntity.status(HttpStatus.CREATED).body();
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseUsers);*/
-        return null;
+        return ResponseEntity.ok(Collections.singletonList(userService.createWithList(users)));
     }
 
     @GetMapping("/{username}")
@@ -80,37 +64,25 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public ResponseEntity<UserResponseDTO> login(@RequestParam (name="username") String username, @RequestParam (name="password") String password){
+    public ResponseEntity<Object> login(@RequestParam (name="username") String username, @RequestParam (name="password") String password){
 
-       /* UserResponseDTO userTemporal = userOutputs.get(username);
-        if(userTemporal!= null && userTemporal.getPassword().equals(password)){
-            String logged = userLoggeds.get(username);
-            if(logged == null){
-                userLoggeds.put(userTemporal.getUserName(),userTemporal.getUserName());
-                return new ResponseEntity<>(HttpStatusCode.valueOf(200));
-            }else{
-                return new ResponseEntity<>(HttpStatusCode.valueOf(500));
-            }
+        Object user = userService.login(username, password);
+        if(user != null){
+            return ResponseEntity.ok(user);
         }else{
-            return new ResponseEntity<>(HttpStatusCode.valueOf(400));
-        }*/
-        return null;
-
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
 
     @GetMapping("/logout")
-    public ResponseEntity<UserResponseDTO> login(@RequestParam String username){
-
-        /*String logged = userLoggeds.get(username);
-
-        if(logged != null){
-            userLoggeds.remove(logged);
-            return new ResponseEntity<>(HttpStatusCode.valueOf(200));
-        }else{
-            return new ResponseEntity<>(HttpStatusCode.valueOf(500));
-        }*/
-        return null;
+    public ResponseEntity<Object> login(@RequestParam String username){
+        boolean isLoggedOut = (boolean) userService.deleteUser(username);
+        if(isLoggedOut){
+            return new ResponseEntity<>(HttpStatusCode.valueOf(204)); //Paso 2.
+        } else{
+            return new ResponseEntity<>(HttpStatusCode.valueOf(404));
+        }
 
     }
 }

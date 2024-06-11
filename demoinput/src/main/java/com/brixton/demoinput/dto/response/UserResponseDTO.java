@@ -14,5 +14,9 @@ public class UserResponseDTO {
     private String email;
     private String password;
     private String phone;
-    private int userStatus;
+    private String userStatus;
+    String createdAt;
+    String createdBy;
+    String updatedAt;
+    String updatedBy;
 }

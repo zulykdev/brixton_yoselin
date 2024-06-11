@@ -15,4 +15,5 @@ public class UserGenericRequestDTO {
     private String password;
     private String phone;
     private int userStatus;
+
 }
