@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Object createWithList(List<UserGenericRequestDTO> inputUsers) {
+    public List<Object> createWithList(List<UserGenericRequestDTO> inputUsers) {
         List<Object> outputUsers = new ArrayList<>();
         try {
             for(UserGenericRequestDTO inputUser: inputUsers){
@@ -147,10 +147,9 @@ public class UserServiceImpl implements UserService {
             try {
                 String jsonOutput = objectMapper.writeValueAsString(user);
                 UserResponseDTO output = objectMapper.readValue(jsonOutput, UserResponseDTO.class);
-                if(output!=null){
-                     userLoggeds.put(user.getUserName(), user.getUserName());
-                     return output;
-                }
+                userLoggeds.put(user.getUserName(), user.getUserName());
+                return output;
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -160,7 +159,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Object logout(String username) {
+    public Boolean logout(String username) {
         String loggedUser = userLoggeds.get(username);
         if(loggedUser != null){
 

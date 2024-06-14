@@ -7,10 +7,10 @@ import java.util.List;
 public interface UserService {
 
     Object createUser(UserGenericRequestDTO inputUser);
-    Object createWithList(List<UserGenericRequestDTO> users);
+    List<Object> createWithList(List<UserGenericRequestDTO> users);
     Object updateUser(String username, UserGenericRequestDTO userActualizar);
     Object getUsername(String username);
     Object deleteUser(String username);
     Object login(String username, String password);
-    Object logout(String username);
+    Boolean logout(String username);
 }

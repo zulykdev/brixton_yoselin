@@ -17,14 +17,10 @@ import java.util.Map;
 @RequestMapping("/v1/store")
 public class StoreController {
 
-    Map<String, StoreGenericRequestDTO> storeInputs = new HashMap<>();
-    Map<String, StoreResponseDTO> storeOutputs = new HashMap<>();
-
-
     @PostMapping("/order")
     public ResponseEntity<StoreResponseDTO> createStore(@RequestBody StoreGenericRequestDTO input) {
 
-        storeInputs.put(String.valueOf(input.getId()), input);
+       /* storeInputs.put(String.valueOf(input.getId()), input);
         //Almacena la informacion para ser devuelta -response-
         StoreResponseDTO registro1 = new StoreResponseDTO();
         registro1.setId(input.getId());
@@ -35,27 +31,29 @@ public class StoreController {
         registro1.setComplete(input.isComplete());
 
         storeOutputs.put(String.valueOf(input.getId()), registro1);
-        return ResponseEntity.ok(registro1);
+        return ResponseEntity.ok(registro1);*/
+        return null;
     }
 
 
     @GetMapping("/inventory/{status}")
     public ResponseEntity<List<StoreResponseDTO>> getInventories(@PathVariable String status) {
 
-        List<StoreResponseDTO> valoresEncontrados = new ArrayList<>();
+        /*List<StoreResponseDTO> valoresEncontrados = new ArrayList<>();
 
         for(StoreResponseDTO x :storeOutputs.values()){
             if(status.equals(x.getStatus())){
                 valoresEncontrados.add(x);
             }
         }
-        return ResponseEntity.ok(valoresEncontrados);
+        return ResponseEntity.ok(valoresEncontrados);*/
+        return null;
     }
 
     @GetMapping("/inventory/count/{status}")
     public ResponseEntity<Integer> getCount(@PathVariable String status) {
 
-        Integer contador = 0;
+        /*Integer contador = 0;
 
         //valores de status("placed", "approved", "delivered")
         for(StoreResponseDTO x :storeOutputs.values()){
@@ -63,12 +61,13 @@ public class StoreController {
                 contador++;
             }
         }
-        return ResponseEntity.ok(contador);
+        return ResponseEntity.ok(contador);*/
+        return null;
     }
 
     @GetMapping("/order/{orderId}")
     public ResponseEntity<StoreResponseDTO> getStore(@PathVariable String orderId) {
-        try {
+       /* try {
             int idStore = Integer.parseInt(orderId); //convertir en integer
             StoreResponseDTO storeTem = storeOutputs.get(String.valueOf(idStore)); // traer los los pets
             if (storeTem != null) {
@@ -78,20 +77,22 @@ public class StoreController {
             }
         } catch (NumberFormatException e) {
             return ResponseEntity.notFound().build(); // retorna 404 con cualquier informacion ingresda
-        }
+        }*/
+        return null;
     }
 
 
     @DeleteMapping("/{idStore}")
     public ResponseEntity deleteStore(@PathVariable int idStore){
 
-        StoreResponseDTO temporal = storeOutputs.get(String.valueOf(idStore)); //Paso 1.
+        /*StoreResponseDTO temporal = storeOutputs.get(String.valueOf(idStore)); //Paso 1.
         if (temporal != null) {
             storeOutputs.remove(String.valueOf(idStore));
             return new ResponseEntity<>(HttpStatusCode.valueOf(204)); //Paso 2.
         } else{
             return new ResponseEntity<>(HttpStatusCode.valueOf(404));
-        }
+        }*/
+        return null;
     }
 }
 

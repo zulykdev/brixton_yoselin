@@ -28,7 +28,8 @@ public class UserController {
     @PostMapping("/createWithList")
     public ResponseEntity<List<Object>> createWithList(@RequestBody List<UserGenericRequestDTO> users) {
 
-        return ResponseEntity.ok(Collections.singletonList(userService.createWithList(users)));
+        //return ResponseEntity.ok(Collections.singletonList(userService.createWithList(users)));
+        return ResponseEntity.ok(userService.createWithList(users));
     }
 
     @GetMapping("/{username}")
@@ -76,9 +77,9 @@ public class UserController {
 
 
     @GetMapping("/logout")
-    public ResponseEntity<Object> login(@RequestParam String username){
-        boolean isLoggedOut = (boolean) userService.deleteUser(username);
-        if(isLoggedOut){
+    public ResponseEntity logout(@RequestParam String username){
+        //boolean isLoggedOut = userService.logout(username);
+        if(userService.logout(username)){
             return new ResponseEntity<>(HttpStatusCode.valueOf(204)); //Paso 2.
         } else{
             return new ResponseEntity<>(HttpStatusCode.valueOf(404));
