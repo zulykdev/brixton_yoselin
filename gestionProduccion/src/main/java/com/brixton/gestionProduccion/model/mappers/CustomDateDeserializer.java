@@ -1,4 +1,4 @@
-package com.brixton.gestionUsuario.model.mappers;
+package com.brixton.gestionProduccion.model.mappers;
 
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
@@ -12,7 +12,6 @@ import java.time.format.DateTimeFormatter;
 public class CustomDateDeserializer extends StdDeserializer<LocalDate> {
 
     public CustomDateDeserializer(){
-
         super(LocalDate.class);
     }
     @Override

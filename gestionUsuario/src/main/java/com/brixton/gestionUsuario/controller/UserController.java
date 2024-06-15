@@ -54,6 +54,12 @@ public class UserController {
     }
     @GetMapping("/{idUser}/permission")
     public ResponseEntity<List<String>> getListPermission(@PathVariable int idUser){
-        return null;
+
+        List<String> permissions = userService.getListPermission(idUser);
+        if(!permissions.isEmpty() ){
+            return ResponseEntity.ok(permissions);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
     }
 }

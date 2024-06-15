@@ -125,9 +125,9 @@ public class UserServiceImpl implements UserService{
         for(User userTemporal: users.values()){
             try {
                 if(userTemporal.getId() == idUser ){
-                    String jsonOutput = objectMapper.writeValueAsString(userTemporal);
-                    //UserResponseDTO output = objectMapper.readValue(jsonOutput, UserResponseDTO.class);
                     for(Role rol : userTemporal.getRoles()){
+                        String jsonOutput = objectMapper.writeValueAsString(rol);
+                       //UserResponseDTO output = objectMapper.readValue(jsonOutput, UserResponseDTO.class);
                         roles.add(rol.getNameRole().toString());
                     }
 
@@ -145,6 +145,23 @@ public class UserServiceImpl implements UserService{
     @Override
     public List<String> getListPermission(int idUser) {
 
-        return null;
+        List<String> permissions = new ArrayList<>();
+        for (User userTemporal : users.values()) {
+            try {
+                if (userTemporal.getId() == idUser) {
+                    for (Permission permission : userTemporal.getPermissions()) {
+                        String jsonOutput = objectMapper.writeValueAsString(permission);
+                        //UserResponseDTO output = objectMapper.readValue(jsonOutput, UserResponseDTO.class);
+                        permissions.add(permission.getNamePermission().toString());
+                    }
+
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        return permissions;
     }
 }
