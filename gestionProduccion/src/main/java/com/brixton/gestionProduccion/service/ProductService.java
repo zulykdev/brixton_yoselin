@@ -2,9 +2,11 @@ package com.brixton.gestionProduccion.service;
 
 import com.brixton.gestionProduccion.dto.request.CategoryRequestDTO;
 import com.brixton.gestionProduccion.dto.request.ProductRequestDTO;
+import com.brixton.gestionProduccion.model.Product;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProductService {
     /**api/products (POST): Agregar un nuevo producto con categorías y control de inventario.
@@ -19,8 +21,9 @@ public interface ProductService {
     Object getProduct(int idProduct);
     Object updateProduct(int idProduct, ProductRequestDTO updateProduct);
 
-    String getCategory(@PathVariable String category);
-    //Integer getInventory(String categoryName);
+    List<String> getCategory();
+
+    Map<String, List<Product>> getInventoryByCategory(String category);
 
 
 }

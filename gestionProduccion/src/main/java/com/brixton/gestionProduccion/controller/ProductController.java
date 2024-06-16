@@ -2,7 +2,7 @@ package com.brixton.gestionProduccion.controller;
 
 import com.brixton.gestionProduccion.dto.request.ProductRequestDTO;
 import com.brixton.gestionProduccion.model.Category;
-import com.brixton.gestionProduccion.model.TypeCategory;
+import com.brixton.gestionProduccion.model.Product;
 import com.brixton.gestionProduccion.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,9 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/v1/product/")
@@ -19,6 +21,7 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
 
     @PostMapping("/")
     public ResponseEntity<Object> createProduct(@RequestBody ProductRequestDTO inputProduct){
@@ -46,9 +49,23 @@ public class ProductController {
     }
 
     @GetMapping("/categories")
-    public String getCategory(String category){
-            String categoris = productService.getCategory(category);
-        return categoris;
+    public ResponseEntity<List<String>> getCategory() {
+        List<String> categori = productService.getCategory();
+        if(!categori.isEmpty()){
+            return ResponseEntity.ok(categori);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
 
+    }
+
+    @GetMapping("/{category}/inventory")
+    public ResponseEntity<Map<String, List<Product>>> getInventoryByCategory(@PathVariable String category){
+        Map<String, List<Product>> inventoriesByCategory = productService.getInventoryByCategory(category);
+        if(!inventoriesByCategory.isEmpty()){
+            return ResponseEntity.ok(inventoriesByCategory);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
     }
 }

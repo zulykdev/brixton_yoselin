@@ -17,18 +17,13 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -37,7 +32,8 @@ public class ProductServiceImpl implements ProductService {
     private static final String USER_APP = "YOSELIN";
 
     Map<Integer, Product> products =  new HashMap<>();
-    Map<String, Category> categories = new HashMap<>();
+
+    //Map<String, List<Product>> inventoriesByCategory = new HashMap<>();
 
     ObjectMapper objectMapper = new ObjectMapper();
     SimpleModule module = new SimpleModule();
@@ -120,17 +116,32 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public String getCategory( String category) {
-       // List<String>categoris = new ArrayList<>();
-        for(Category categori: categories.values()){
-            try {
-                String jsonOutput = objectMapper.writeValueAsString(categori);
-                //categoris.add(String.valueOf(categori.getName()));
-                return jsonOutput;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    public List<String> getCategory() {
+        List<String> typeCategories = new ArrayList<>();
+        for(TypeCategory type: TypeCategory.values()){
+            typeCategories.add(type.toString());
         }
-        return  null;
+        return typeCategories;
+    }
+
+    @Override
+    public Map<String, List<Product>> getInventoryByCategory(String category) {
+        Map<String, List<Product>> inventoriesByCategory = new HashMap<>();
+
+        //List<Product> categoryList = new ArrayList<>();
+        //String categoria = " ";
+        for(Product product: products.values()){
+            String categoria = String.valueOf(product.getCategory().getName());
+            inventoriesByCategory.putIfAbsent(categoria, new ArrayList<>());
+            inventoriesByCategory.get(categoria).add(product);
+
+        }
+        if(inventoriesByCategory.containsKey(category)){
+            Map<String, List<Product>> result = new HashMap<>();
+            result.put(category, inventoriesByCategory.get(category));
+            return result;
+
+        }
+        return null;
     }
 }

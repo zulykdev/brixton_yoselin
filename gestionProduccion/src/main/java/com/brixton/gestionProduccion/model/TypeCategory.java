@@ -1,7 +1,7 @@
 package com.brixton.gestionProduccion.model;
 
 public enum TypeCategory {
-    FOOT("FOOT"),
+    FOOD("FOOD"),
     BEVERAGE("BEVERAGE"),
     NON_PERISHABLE("NON_PERISHABLE"),
     CLEANING_PRODUCT("CLEANING_PRODUCT");
