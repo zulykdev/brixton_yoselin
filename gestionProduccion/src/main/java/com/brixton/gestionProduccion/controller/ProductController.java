@@ -1,6 +1,7 @@
 package com.brixton.gestionProduccion.controller;
 
 import com.brixton.gestionProduccion.dto.request.ProductRequestDTO;
+import com.brixton.gestionProduccion.dto.response.ProductResponseDTO;
 import com.brixton.gestionProduccion.model.Category;
 import com.brixton.gestionProduccion.model.Product;
 import com.brixton.gestionProduccion.service.ProductService;
@@ -60,8 +61,15 @@ public class ProductController {
     }
 
     @GetMapping("/{category}/inventory")
-    public ResponseEntity<Map<String, List<Product>>> getInventoryByCategory(@PathVariable String category){
-        Map<String, List<Product>> inventoriesByCategory = productService.getInventoryByCategory(category);
+    public ResponseEntity<List<Object>> getInventoryByCategory(@PathVariable String category){
+        /*Map<String, List<Product>> inventoriesByCategory = productService.getInventoryByCategory(category);
+        if(!inventoriesByCategory.isEmpty()){
+            return ResponseEntity.ok(inventoriesByCategory);
+        }else{
+            return ResponseEntity.notFound().build();
+        }*/
+
+        List<Object> inventoriesByCategory = productService.getInventoryByCategory(category);
         if(!inventoriesByCategory.isEmpty()){
             return ResponseEntity.ok(inventoriesByCategory);
         }else{

@@ -10,4 +10,5 @@ import lombok.ToString;
 public class Inventory {
     private int id;
     private int quantity;
+    private int idProduct;
 }

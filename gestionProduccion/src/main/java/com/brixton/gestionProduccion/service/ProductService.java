@@ -2,6 +2,7 @@ package com.brixton.gestionProduccion.service;
 
 import com.brixton.gestionProduccion.dto.request.CategoryRequestDTO;
 import com.brixton.gestionProduccion.dto.request.ProductRequestDTO;
+import com.brixton.gestionProduccion.dto.response.ProductResponseDTO;
 import com.brixton.gestionProduccion.model.Product;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -23,7 +24,7 @@ public interface ProductService {
 
     List<String> getCategory();
 
-    Map<String, List<Product>> getInventoryByCategory(String category);
+    List<Object> getInventoryByCategory(String category);
 
 
 }

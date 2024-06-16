@@ -124,7 +124,7 @@ public class ProductServiceImpl implements ProductService {
         return typeCategories;
     }
 
-    @Override
+    /*@Override
     public Map<String, List<Product>> getInventoryByCategory(String category) {
         Map<String, List<Product>> inventoriesByCategory = new HashMap<>();
 
@@ -143,5 +143,28 @@ public class ProductServiceImpl implements ProductService {
 
         }
         return null;
+    }*/
+    @Override
+    public List<Object> getInventoryByCategory(String category) {
+        List<Object> categoryList = new ArrayList<>();
+
+        try {
+            for (Product product : products.values()) {
+                String jsonOutput = objectMapper.writeValueAsString(product);
+                ProductResponseDTO output = objectMapper.readValue(jsonOutput, ProductResponseDTO.class);
+                String categoria = String.valueOf(product.getCategory().getName());
+
+                if (categoria.equals(category)) {
+                    categoryList.add(output.getInventory());
+                }
+            }
+            log.info(categoryList.toString());
+            return categoryList;
+
+        } catch (Exception e) {
+            log.error("Error processing inventory by category", e);
+            return Collections.emptyList(); // Devuelve una lista vacía en caso de error
+        }
     }
+
 }

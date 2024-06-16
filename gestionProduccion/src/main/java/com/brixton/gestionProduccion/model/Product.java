@@ -13,4 +13,6 @@ public class Product extends ObjectAudit {
     private double price;
     private Category category;
     private Inventory inventory;
+
+
 }
