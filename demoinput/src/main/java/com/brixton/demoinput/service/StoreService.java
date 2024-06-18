@@ -1,6 +1,6 @@
 package com.brixton.demoinput.service;
 
-import com.brixton.demoinput.dto.request.StoreGenericRequestDTO;
+import com.brixton.demoinput.dto.response.request.StoreGenericRequestDTO;
 
 import java.util.List;
 

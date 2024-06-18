@@ -63,6 +63,7 @@ public class ProductServiceImpl implements ProductService {
             Product product = objectMapper.readValue(jsonInput, Product.class);
             product.setCreatedAt(LocalDateTime.now());
             product.setCreatedBy(USER_APP);
+            product.getInventory().setIdProduct(product.getId());
             products.put(product.getId(), product);
 
             String jsonOutput = objectMapper.writeValueAsString(product);

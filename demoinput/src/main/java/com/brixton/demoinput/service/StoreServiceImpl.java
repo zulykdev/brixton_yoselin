@@ -1,7 +1,6 @@
 package com.brixton.demoinput.service;
 
-import com.brixton.demoinput.dto.request.StoreGenericRequestDTO;
-import com.brixton.demoinput.dto.response.StoreResponseDTO;
+import com.brixton.demoinput.dto.response.request.StoreGenericRequestDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import com.brixton.demoinput.model.store.Store;

@@ -154,7 +154,7 @@ public class UserServiceImpl implements UserService{
                         //UserResponseDTO output = objectMapper.readValue(jsonOutput, UserResponseDTO.class);
                         permissions.add(permission.getNamePermission().toString());
                     }
-
+                    //permissions = userTemporal.getPermissions();
                 }
 
             } catch (Exception e) {

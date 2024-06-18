@@ -1,17 +1,12 @@
 package com.brixton.demoinput.controller;
 
-import com.brixton.demoinput.dto.request.StoreGenericRequestDTO;
-import com.brixton.demoinput.dto.response.PetResponseDTO;
+import com.brixton.demoinput.dto.response.request.StoreGenericRequestDTO;
 import com.brixton.demoinput.dto.response.StoreResponseDTO;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/v1/store")

@@ -1,6 +1,6 @@
 package com.brixton.demoinput.controller;
 
-import com.brixton.demoinput.dto.request.PetGenericRequestDTO;
+import com.brixton.demoinput.dto.response.request.PetGenericRequestDTO;
 import com.brixton.demoinput.dto.response.PetResponseDTO;
 import lombok.extern.slf4j.Slf4j;
 

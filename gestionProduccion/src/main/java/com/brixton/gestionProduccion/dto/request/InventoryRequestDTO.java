@@ -9,5 +9,5 @@ import lombok.ToString;
 public class InventoryRequestDTO {
     private int id;
     private int quantity;
-    private int idProduct;
+    //private int idProduct;
 }

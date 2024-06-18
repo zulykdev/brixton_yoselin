@@ -1,6 +1,6 @@
 package com.brixton.demoinput.dto.response;
 
-import com.brixton.demoinput.dto.request.CategoryRequestDTO;
+import com.brixton.demoinput.dto.response.request.CategoryRequestDTO;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,6 +1,6 @@
 package com.brixton.demoinput.service;
 
-import com.brixton.demoinput.dto.request.UserGenericRequestDTO;
+import com.brixton.demoinput.dto.response.request.UserGenericRequestDTO;
 import com.brixton.demoinput.dto.response.UserResponseDTO;
 import com.brixton.demoinput.model.mappers.CustomDateDeserializer;
 import com.brixton.demoinput.model.user.User;
