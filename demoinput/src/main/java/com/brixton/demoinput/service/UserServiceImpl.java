@@ -46,6 +46,7 @@ public class UserServiceImpl implements UserService {
         objectMapper.findAndRegisterModules();
     }
 
+    @Override
     public Object createUser(UserGenericRequestDTO inputUser){
 
         try {

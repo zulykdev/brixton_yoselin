@@ -12,4 +12,8 @@ public class StoreResponseDTO {
     private String shipDate;
     private String status;
     private boolean complete;
+    private String createdAt;
+    private String createdBy;
+    private String updatedAt;
+    private String updatedBy;
 }

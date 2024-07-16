@@ -34,7 +34,7 @@ public class BookingController {
     }
 
     @PutMapping("/{id}/payment")
-    public Object processPayment(@RequestBody , double amount){
+    public Object processPayment(@RequestBody double amount){
         return null;
     }
 }
